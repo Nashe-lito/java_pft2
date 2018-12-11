@@ -17,9 +17,9 @@ public class ApplicationManager {
     private StringBuffer verificationErrors = new StringBuffer();
 
     public void init() {
-       driver = new FirefoxDriver();
-       driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-       driver.get("http://localhost/addressbook/index.php");
+        driver = new FirefoxDriver();
+        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+        driver.get("http://localhost/addressbook/index.php");
         contactHelper = new ContactHelper(driver);
         groupHelper = new GroupHelper(driver);
         navigationHelper = new NavigationHelper(driver);
@@ -36,38 +36,7 @@ public class ApplicationManager {
         }
     }
 
-    private boolean isElementPresent(By by) {
-        try {
-            driver.findElement(by);
-            return true;
-        } catch (NoSuchElementException e) {
-            return false;
-        }
-    }
 
-    private boolean isAlertPresent() {
-        try {
-            driver.switchTo().alert();
-            return true;
-        } catch (NoAlertPresentException e) {
-            return false;
-        }
-    }
-
-    private String closeAlertAndGetItsText() {
-        try {
-            Alert alert = driver.switchTo().alert();
-            String alertText = alert.getText();
-            if (contactHelper.acceptNextAlert) {
-                alert.accept();
-            } else {
-                alert.dismiss();
-            }
-            return alertText;
-        } finally {
-            contactHelper.deleteContact();
-        }
-    }
 
     public GroupHelper getGroupHelper() {
         return groupHelper;

@@ -1,71 +1,90 @@
 package ru.stqa.pft.addressbook.appmanager;
 
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import ru.stqa.pft.addressbook.model.ContactData;
 
-public class ContactHelper{
-    private WebDriver driver;
+public class ContactHelper extends HelperBase{
 
     public ContactHelper(WebDriver driver) {
-        this.driver=driver;
+        super(driver);
     }
 
-    protected boolean acceptNextAlert = true;
+    public boolean acceptNextAlert = true;
 
 
     public void backToHomePageCC() {
-      driver.findElement(By.linkText("home page")).click();
+        click(By.linkText("home page"));
+    }
+
+    public void click(By locator) {
+        driver.findElement(locator).click();
     }
 
     public void submitContactCreation() {
-      driver.findElement(By.name("submit")).click();
+        click(By.name("submit"));
     }
 
     public void fillContactCreation(ContactData contactData) {
-      driver.findElement(By.name("firstname")).click();
-      driver.findElement(By.name("firstname")).clear();
-      driver.findElement(By.name("firstname")).sendKeys(contactData.getFirstName());
-      driver.findElement(By.name("lastname")).click();
-      driver.findElement(By.name("lastname")).clear();
-      driver.findElement(By.name("lastname")).sendKeys(contactData.getLastName());
-      driver.findElement(By.name("nickname")).click();
-      driver.findElement(By.name("nickname")).clear();
-      driver.findElement(By.name("nickname")).sendKeys(contactData.getNickName());
-      driver.findElement(By.name("title")).click();
-      driver.findElement(By.name("title")).clear();
-      driver.findElement(By.name("title")).sendKeys(contactData.getTitle());
-      driver.findElement(By.name("mobile")).click();
-      driver.findElement(By.name("mobile")).clear();
-      driver.findElement(By.name("mobile")).sendKeys(contactData.getMobile());
-      driver.findElement(By.name("work")).click();
-      driver.findElement(By.name("work")).clear();
-      driver.findElement(By.name("work")).sendKeys(contactData.getWork());
-      driver.findElement(By.name("email")).click();
-      driver.findElement(By.name("email")).clear();
-      driver.findElement(By.name("email")).sendKeys(contactData.getEmail());
-      driver.findElement(By.name("phone2")).click();
-      driver.findElement(By.name("phone2")).clear();
-      driver.findElement(By.name("phone2")).sendKeys(contactData.getPhone2());
+        type(By.name("firstname"), contactData.getFirstName());
+        type(By.name("lastname"), contactData.getLastName());
+        type(By.name("nickname"), contactData.getNickName());
+        type(By.name("title"), contactData.getTitle());
+        type(By.name("mobile"), contactData.getMobile());
+        type(By.name("work"), contactData.getWork());
+        type(By.name("email"), contactData.getEmail());
+        type(By.name("phone2"), contactData.getPhone2());
+    }
+
+    public void type(By locator, String text) {
+        click(locator);
+        driver.findElement(locator).clear();
+        driver.findElement(locator).sendKeys(text);
     }
 
     public void addNewContact() {
-      driver.findElement(By.linkText("add new")).click();
+        click(By.linkText("add new"));
     }
 
     public void backAfterDeletionContact() {
-      driver.findElement(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Select all'])[1]/following::input[2]")).click();
+        click(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Select all'])[1]/following::input[2]"));
     }
 
     public void deleteContact() {
-      acceptNextAlert = true;
+        acceptNextAlert = true;
     }
 
     public void selectedContact() {
-      driver.findElement(By.name("selected[]")).click();
+        click(By.name("selected[]"));
     }
 
     public void goToDelitionPage() {
-      driver.findElement(By.linkText("home")).click();
+        click(By.linkText("home"));
+    }
+
+    public String closeAlertAndGetItsText() {
+        try {
+            Alert alert = driver.switchTo().alert();
+            String alertText = alert.getText();
+            if (acceptNextAlert) {
+                alert.accept();
+            } else {
+                alert.dismiss();
+            }
+            return alertText;
+        } finally {
+            deleteContact();
+        }
+    }
+
+    public void initContactModification() {
+        click(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='test50999999999test30989999999'])[1]/following::img[2]"));
+        //click(By.linkText("edit"));
+    }
+
+    public void submitContactModification() {
+        click(By.name("update"));
+
     }
 }
