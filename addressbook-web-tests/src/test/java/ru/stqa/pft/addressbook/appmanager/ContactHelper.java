@@ -3,9 +3,10 @@ package ru.stqa.pft.addressbook.appmanager;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.Select;
 import ru.stqa.pft.addressbook.model.ContactData;
 
-public class ContactHelper extends HelperBase{
+public class ContactHelper extends HelperBase {
 
     public ContactHelper(WebDriver driver) {
         super(driver);
@@ -15,6 +16,9 @@ public class ContactHelper extends HelperBase{
 
 
     public void backToHomePageCC() {
+        if (isElementPresent(By.id("maintable"))){
+            return;
+        }
         click(By.linkText("home page"));
     }
 
@@ -26,7 +30,7 @@ public class ContactHelper extends HelperBase{
         click(By.name("submit"));
     }
 
-    public void fillContactCreation(ContactData contactData) {
+    public void fillContactCreation(ContactData contactData,  boolean creation) {
         type(By.name("firstname"), contactData.getFirstName());
         type(By.name("lastname"), contactData.getLastName());
         type(By.name("nickname"), contactData.getNickName());
@@ -35,6 +39,11 @@ public class ContactHelper extends HelperBase{
         type(By.name("work"), contactData.getWork());
         type(By.name("email"), contactData.getEmail());
         type(By.name("phone2"), contactData.getPhone2());
+
+        if (creation) {
+            new Select(driver.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
+        } else {isElementPresent(By.name("new_group"));
+        }
     }
 
     public void type(By locator, String text) {

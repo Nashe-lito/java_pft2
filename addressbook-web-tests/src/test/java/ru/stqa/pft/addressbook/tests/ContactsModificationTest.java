@@ -9,7 +9,9 @@ public class ContactsModificationTest extends TestBase{
     public void testContactsModification() {
         app.getContactHelper().goToDelitionPage();
         app.getContactHelper().initContactModification(); //подумать можно ли заменить данный метод
-        app.getContactHelper().fillContactCreation(new ContactData("First name", "Last name", "test1", "test2", "0999999999", "test3", "test@test.test", "0989999999"));
+        app.getContactHelper().fillContactCreation(new ContactData("First name", "Last name",
+                "test1", "test2", "0999999999", "test3", "test@test.test",
+                "0989999999", null), false);
         app.getContactHelper().submitContactModification();
         app.getContactHelper().backToHomePageCC();
 
