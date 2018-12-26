@@ -64,8 +64,8 @@ public class ContactHelper extends HelperBase {
         acceptNextAlert = true;
     }
 
-    public void selectedContact() {
-        click(By.name("selected[]"));
+    public void selectedContact(int index) {
+        driver.findElements(By.name("selected[]")).get(index).click();
     }
 
     public void goToDelitionPage() {
@@ -87,13 +87,35 @@ public class ContactHelper extends HelperBase {
         }
     }
 
-    public void initContactModification() {
-        click(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='test50999999999test30989999999'])[1]/following::img[2]"));
-        //click(By.linkText("edit"));
-    }
+    //public void initContactModification() {
+    //    click(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='test50999999999test30989999999'])[1]/following::img[2]"));
+    //    //click(By.linkText("edit")){
+    // }
+
+    public void initContactModification(int index) {
+            driver.findElements(By.xpath("//*[@id=\"maintable\"]/tbody/tr[2]/td[8]/a")).get(index).click();
+        }
 
     public void submitContactModification() {
         click(By.name("update"));
 
+    }
+
+    public void createContact(ContactData contact) {
+        addNewContact();
+        fillContactCreation(new ContactData("First name", "Last name",
+                 "test1", "test2", "0999999999", "test3", "test@test.test",
+                "0989999999", "test1"), true);
+        submitContactCreation();
+        backToHomePageCC();
+
+    }
+
+    public boolean isThereAContact() {
+        return isElementPresent(By.name("selected[]"));
+    }
+
+    public int getContactCount() {
+        return driver.findElements(By.name("selected[]")).size();
     }
 }
