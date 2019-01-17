@@ -12,3 +12,9 @@ gradle-app.setting
 
 # # Work around https://youtrack.jetbrains.com/issue/IDEA-116898
 # gradle/wrapper/gradle-wrapper.properties
+.idea/modules/Aurocraft.iml
+.idea/uiDesigner.xml
+.idea/workspace.xml
+sandbox/.idea/workspace.xml
+addressbook-web-tests/out/test/classes/META-INF/addressbook-web-tests.main.kotlin_module
+addressbook-web-tests/out/test/classes/META-INF/addressbook-web-tests.main.kotlin_module

@@ -6,7 +6,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 import ru.stqa.pft.addressbook.model.ContactData;
-import ru.stqa.pft.addressbook.model.GroupData2;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +20,7 @@ public class ContactHelper extends HelperBase {
 
 
     public void backToHomePageCC() {
-        if (isElementPresent(By.id("maintable"))){
+        if (isElementPresent(By.id("maintable"))) {
             return;
         }
         click(By.linkText("home page"));
@@ -35,7 +34,7 @@ public class ContactHelper extends HelperBase {
         click(By.name("submit"));
     }
 
-    public void fillContactCreation(ContactData contactData,  boolean creation) {
+    public void fillContactCreation(ContactData contactData, boolean creation) {
         type(By.name("firstname"), contactData.getFirstName());
         type(By.name("lastname"), contactData.getLastName());
         type(By.name("nickname"), contactData.getNickName());
@@ -47,7 +46,8 @@ public class ContactHelper extends HelperBase {
 
         if (creation) {
             new Select(driver.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
-        } else {isElementPresent(By.name("new_group"));
+        } else {
+            isElementPresent(By.name("new_group"));
         }
     }
 
@@ -98,8 +98,8 @@ public class ContactHelper extends HelperBase {
     // }
 
     public void initContactModification(int index) {
-            driver.findElements(By.xpath("//*[@id=\"maintable\"]/tbody/tr[2]/td[8]/a")).get(index).click();
-        }
+        driver.findElements(By.xpath("//*[@id=\"maintable\"]/tbody/tr[2]/td[8]/a")).get(index).click();
+    }
 
     public void submitContactModification() {
         click(By.name("update"));
@@ -109,7 +109,7 @@ public class ContactHelper extends HelperBase {
     public void createContact(ContactData contact) {
         addNewContact();
         fillContactCreation(new ContactData("First name", "Last name",
-                 "test1", "test2", "0999999999", "test3", "test@test.test",
+                "test1", "test2", "0999999999", "test3", "test@test.test",
                 "0989999999", "test1"), true);
         submitContactCreation();
         backToHomePageCC();
@@ -123,4 +123,22 @@ public class ContactHelper extends HelperBase {
     public int getContactCount() {
         return driver.findElements(By.name("selected[]")).size();
     }
+
+ //   public List<ContactData> getContactList() {
+ //       List<ContactData> contacts = new ArrayList<ContactData>();
+    //       List<WebElement> elements = driver.findElements(By.cssSelector("tr"));
+ //   for (WebElement element : elements) {
+ //         String firstname = element.getText();
+ //         String lastname = element.getText();
+ //         // String id = element.findElement(By.tagName("input")).getAttribute("value");
+ //         int id = Integer.parseInt(element.findElement(By.xpath("input")).getAttribute("value"));
+    //         ContactData contact = new ContactData(id, firstname, lastname, null, null, null, null, null,
+    //              null, null);
+    //        contacts.add(contact);
+    //  }
+
+    //  return contacts;
+    // }
+
+
 }
