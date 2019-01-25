@@ -31,5 +31,5 @@ public class GroupCreationTest2 extends TestBase {
         Groups after = app.group().all();
         assertThat(after, equalTo(before));
     }
-    
+
 }
