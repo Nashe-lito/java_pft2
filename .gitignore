@@ -18,3 +18,6 @@ gradle-app.setting
 sandbox/.idea/workspace.xml
 addressbook-web-tests/out/test/classes/META-INF/addressbook-web-tests.main.kotlin_module
 addressbook-web-tests/out/test/classes/META-INF/addressbook-web-tests.main.kotlin_module
+*.log
+.idea/dictionaries/daria.xml
+.idea/dictionaries/daria.xml
